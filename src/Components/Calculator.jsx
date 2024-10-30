@@ -107,14 +107,14 @@ function Calculator() {
         {/* display result */}
         <Col sm={12} md={6} lg={4} className="enter  m-4">
           <h2 className="p-3 text-center fw-bolder" style={{color:"maroon"}}>After Discount</h2>
-          <h2 className='fw-bold'>Pay Only: </h2>
-          <div className="container border border-dark bg-light mt-3 p-5">
-            <p className='text-center'>{discountedPrice !== null ? `₹${discountedPrice.toFixed(2)}` : ' '}</p>
+          <h2 className='fw-bold' style={{color:"darkblue"}}>Pay Only: </h2>
+          <div className="container border border-light bg-light mt-3 p-5" style={{borderRadius:"50%"}}>
+            <p className='text-center fs-1 fw-bold'style={{color:"darkblue"}}>{discountedPrice !== null ? `₹${discountedPrice.toFixed(2)}` : ' '}</p>
           </div>
           <br /><br /><br />
-          <h2 className='fw-bold'>Amount you Saved: </h2>
-          <div className="container border border-dark bg-light mt-3 p-5">
-            <p className='text-center'>{amountSaved !== null ? ` ₹${amountSaved.toFixed(2)}` : ' '}</p>
+          <h2 className='fw-bold' style={{color:"darkgreen"}}>Amount you Saved: </h2>
+          <div className="container border border-light  bg-light mt-3 p-5" style={{borderRadius:"50px"}}>
+            <p className='text-center fs-1 fw-bold'style={{color:"darkgreen"}}>{amountSaved !== null ? ` ₹${amountSaved.toFixed(2)}` : ' '}</p>
           </div>
         </Col>
         
