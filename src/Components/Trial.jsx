@@ -1,53 +1,51 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
-
+import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Button from '@mui/material/Button';
 
 function Calculator() {
   const [originalPrice, setOriginalPrice] = useState('');
-  const [discountPercentage, setDiscountPercentage] = useState("");
-  const [discountedPrice, setDiscountedPrice] = useState("");
-  const [amountSaved, setAmountSaved] = useState("");
+  const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(null);
+  const [amountSaved, setAmountSaved] = useState(null);
 
-  const handleOriginalPriceChange = (e) => {
-    setOriginalPrice(e.target.value);
-    
+  const handleOriginalPriceChange = (event) => {
+    setOriginalPrice(event.target.value);
   };
 
-  const handleSliderChange = (e, newValue) => {
+  const handleSliderChange = (event, newValue) => {
     setDiscountPercentage(newValue);
   };
 
-  const handleDiscountPercentageChange = (e) => {
-    let inputvalue = e.target.value;
+  const handleDiscountPercentageChange = (event) => {
+    let value = event.target.value;
   
     // Convert to a number and back to a string to remove leading zeros
-    //value = Number(value).toString();
+    value = Number(value).toString();
   
     // Ensure the value is between 0 and 100
-    if (inputvalue >= 0 && inputvalue <= 100) {
-      setDiscountPercentage(inputvalue);
+    if (value >= 0 && value <= 100) {
+      setDiscountPercentage(value);
     }
   };
   
 
-  const calculateDiscount = (e) => {
-    e.preventDefault()
-   
+  const calculateDiscount = () => {
+    if (originalPrice && discountPercentage >= 0 && discountPercentage <= 100) {
       const discountAmount = (originalPrice * discountPercentage) / 100;
       const finalPrice = originalPrice - discountAmount;
       setDiscountedPrice(finalPrice);
       setAmountSaved(discountAmount);
-    
+    }
   };
 
   const resetValues = () => {
     setOriginalPrice('');
     setDiscountPercentage(0);
-    setDiscountedPrice("");
-    setAmountSaved("");
+    setDiscountedPrice(null);
+    setAmountSaved(null);
   };
 
   return (
@@ -83,17 +81,16 @@ function Calculator() {
         
           />
            {/* slider */}
-          
-             <Slider
+          <Box sx={{ width: 300 }}>
+            <Slider
               value={discountPercentage}
               onChange={handleSliderChange}
               aria-label="Discount Percentage"
               valueLabelDisplay="auto"
               min={0}
               max={100}
-              style={{width:"300px"}}
-            /> 
-         
+            />
+          </Box>
 
           <br />
   {/* calculate and reset buttons */}
@@ -112,12 +109,12 @@ function Calculator() {
           <h2 className="p-3 text-center fw-bolder" style={{color:"maroon"}}>After Discount</h2>
           <h2 className='fw-bold' style={{color:"darkblue"}}>Pay Only: </h2>
           <div className="container border border-light bg-light mt-3 p-5" style={{borderRadius:"50%"}}>
-            <p className='text-center fs-1 fw-bold'style={{color:"darkblue"}} >{discountedPrice.toFixed(2) }</p>
+            <p className='text-center fs-1 fw-bold'style={{color:"darkblue"}}>{discountedPrice !== null ? `₹${discountedPrice.toFixed(2)}` : ' '}</p>
           </div>
           <br /><br /><br />
           <h2 className='fw-bold' style={{color:"darkgreen"}}>Amount you Saved: </h2>
           <div className="container border border-light  bg-light mt-3 p-5" style={{borderRadius:"50px"}}>
-            <p className='text-center fs-1 fw-bold'style={{color:"darkgreen"}} >{amountSaved.toFixed(2) }</p>
+            <p className='text-center fs-1 fw-bold'style={{color:"darkgreen"}}>{amountSaved !== null ? ` ₹${amountSaved.toFixed(2)}` : ' '}</p>
           </div>
         </Col>
         
